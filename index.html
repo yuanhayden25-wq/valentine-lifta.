@@ -13,11 +13,11 @@
 
         .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(216, 129, 144, 0.2); width: 85%; max-width: 350px; z-index: 10; text-align: center; border: 2px solid var(--pink); position: relative; }
         
-        /* Gambar Baru yang Stabil */
-        .main-img { width: 100%; border-radius: 20px; margin-bottom: 15px; display: block; }
+        /* Gambar Kucing Stabil (Bukan Giphy) */
+        .main-img { width: 100%; border-radius: 20px; margin-bottom: 15px; display: block; height: 200px; object-fit: cover; }
         
         .btn-wrapper { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .btn { border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; width: 100%; z-index: 100; position: relative; -webkit-tap-highlight-color: transparent; }
+        .btn { border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; width: 100%; z-index: 100; position: relative; -webkit-tap-highlight-color: transparent; outline: none; }
         .btn-yes { background: var(--pink); color: white; box-shadow: 0 5px 15px var(--pink); }
         .btn-no { background: #eee; color: #888; }
 
@@ -32,16 +32,16 @@
 
     <div class="card">
         <div id="ask-content">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueW9ybm0xaG93Nm9idG5qZzR4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" class="main-img" onerror="this.src='https://placekitten.com/400/300'">
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500" class="main-img">
             <h1>Will you be my Valentine, Lifta? 🎀</h1>
             <div class="btn-wrapper">
                 <button class="btn btn-yes" id="yesBtn" onclick="accepted()">Yes!</button>
-                <button class="btn btn-no" id="noBtn" onpointerdown="moveNo()">No</button>
+                <button class="btn btn-no" id="noBtn" onpointerdown="moveNo()" onclick="moveNo()">No</button>
             </div>
         </div>
 
         <div id="success-content">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmYxeXNyeXJpZ3R3bm9idG5qZzR4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KZTv76q7G5Y2eK6r9P/giphy.gif" class="main-img" onerror="this.src='https://placekitten.com/401/301'">
+            <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500" class="main-img">
             <h1>Yeeay! I Love You! 💖</h1>
             <div id="typing-text" style="font-size: 1rem; line-height: 1.5; min-height: 80px;"></div>
             <div style="font-size: 30px; margin-top: 10px;">🌸🌼🌻</div>
@@ -51,9 +51,9 @@
     <script>
         let yesScale = 1;
         const messages = [
-            "Halo Lifta sayang... ",
-            "HAPPY VALENTINE DAY💌!",
-            "i just want you to know how much you truly mean to me, you're not just someone i care about, you're someone i carry with me in every thought, every quiet moment, every hope for the future. your presence in my life brings warmth, comfort and a sense of calm that's hard to put into words. even on your toughest day, please remember that you're never alone. i see your heart, i believe in your strength, and i'll always be here, cheering for you, supporting you, and loving you in every way i can . you matter more than you know. 🌸🌼🌻",
+            "Hello Lifta sayang... ",
+            "HAPPY VALENTINES DAY💌!",
+            “i just want you to know how much you truly mean to me, you're not just someone i care about, you're someone i carry with me in every thought, every quiet moment, every hope for the future. your presence in my life brings warmth, comfort and a sense of calm that's hard to put into words. even on your toughest day, please remember that you're never alone. i see your heart, i believe in your strength, and i'll always be here, cheering for you, supporting you, and loving you in every way i can . you matter more than you know. 🌸🌼🌻",
             "I love you so much! ✨"
         ];
 
@@ -65,7 +65,7 @@
             btnNo.style.position = 'fixed';
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
-            yesScale += 0.15;
+            yesScale += 0.2;
             btnYes.style.transform = `scale(${yesScale})`;
         }
 
