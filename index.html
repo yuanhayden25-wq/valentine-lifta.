@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine, Lifta! 💖</title>
+    <style>
+        :root { --pink: #fbc2eb; --krem: #fff5e1; --text: #d88190; }
+        body { background: var(--krem); color: var(--text); font-family: sans-serif; text-align: center; margin: 0; overflow-x: hidden; }
+        .heart { position: fixed; top: -10px; font-size: 20px; animation: fall 3s linear forwards; z-index: 1000; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+        .container { padding: 50px 20px; }
+        .avatar { font-size: 100px; position: relative; display: inline-block; }
+        .glasses { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); font-size: 40px; }
+        .btn { background: var(--pink); border: none; padding: 15px 30px; border-radius: 50px; color: white; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #garden { margin-top: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div style="display:none">
+        <iframe id="music" width="0" height="0" src="https://www.youtube.com/embed/SOf-pP7v6u8?enablejsapi=1" frameborder="0"></iframe>
+    </div>
+    <div class="container">
+        <h1>Happy Valentine, Lifta! 🎀</h1>
+        <div class="avatar">👧🏻<div class="glasses">👓</div></div>
+        <p><i>"My Heart is Yours, Forever."</i></p>
+        <button class="btn" onclick="start()">Klik Untuk Musik & Bunga 🌷</button>
+        <div id="garden"></div>
+    </div>
+    <script>
+        function start() {
+            document.getElementById('music').src += "&autoplay=1";
+            const g = document.getElementById('garden');
+            const l = document.createElement('div');
+            l.innerHTML = '🌷'; l.style.fontSize = '40px';
+            g.appendChild(l);
+        }
+        setInterval(() => {
+            const h = document.createElement('div');
+            h.classList.add('heart'); h.innerHTML = '💗';
+            h.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 3000);
+        }, 400);
+    </script>
+</body>
+</html>
