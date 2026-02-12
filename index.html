@@ -6,73 +6,22 @@
     <title>Special for Lifta 💖</title>
     <style>
         :root { --pink: #fbc2eb; --dark-pink: #d88190; --krem: #fff5e1; }
+        body { background: var(--krem); color: var(--dark-pink); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: manipulation; }
         
-        /* Dasar Body */
-        body { 
-            background: var(--krem); 
-            color: var(--dark-pink); 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            overflow: hidden; 
-            touch-action: manipulation; 
-        }
-
-        /* Elemen Melayang dipindah ke belakang (z-index: 1) */
-        .floating { 
-            position: fixed; 
-            z-index: 1; 
-            pointer-events: none; 
-            animation: float 6s ease-in-out infinite; 
-            opacity: 0.6; 
-        }
+        .floating { position: fixed; z-index: 1; pointer-events: none; animation: float 6s ease-in-out infinite; opacity: 0.6; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        /* Card Utama (z-index: 10) */
-        .card { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 30px; 
-            box-shadow: 0 10px 30px rgba(216, 129, 144, 0.2); 
-            width: 85%; 
-            max-width: 350px; 
-            z-index: 10; 
-            text-align: center; 
-            border: 2px solid var(--pink); 
-            position: relative;
-        }
-
-        /* Tombol (z-index: 100 agar paling depan) */
-        .btn-wrapper { 
-            margin-top: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            align-items: center; 
-        }
-
-        .btn { 
-            border: none; 
-            padding: 15px; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 1.1rem; 
-            width: 100%; 
-            z-index: 100; 
-            position: relative;
-            display: block;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(216, 129, 144, 0.2); width: 85%; max-width: 350px; z-index: 10; text-align: center; border: 2px solid var(--pink); position: relative; }
+        
+        /* Gambar Baru yang Stabil */
+        .main-img { width: 100%; border-radius: 20px; margin-bottom: 15px; display: block; }
+        
+        .btn-wrapper { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .btn { border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; width: 100%; z-index: 100; position: relative; -webkit-tap-highlight-color: transparent; }
         .btn-yes { background: var(--pink); color: white; box-shadow: 0 5px 15px var(--pink); }
-        .btn-no { background: #eee; color: #888; transition: 0.1s; }
+        .btn-no { background: #eee; color: #888; }
 
         #success-content { display: none; }
-        .main-img { width: 100%; border-radius: 20px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -83,7 +32,7 @@
 
     <div class="card">
         <div id="ask-content">
-            <div style="font-size: 50px;">🐈✨</div>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueW9ybm0xaG93Nm9idG5qZzR4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" class="main-img" onerror="this.src='https://placekitten.com/400/300'">
             <h1>Will you be my Valentine, Lifta? 🎀</h1>
             <div class="btn-wrapper">
                 <button class="btn btn-yes" id="yesBtn" onclick="accepted()">Yes!</button>
@@ -92,7 +41,7 @@
         </div>
 
         <div id="success-content">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmYxeXNyeXJpZ3R3bm9idG5qZzR4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KZTv76q7G5Y2eK6r9P/giphy.gif" class="main-img">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmYxeXNyeXJpZ3R3bm9idG5qZzR4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KZTv76q7G5Y2eK6r9P/giphy.gif" class="main-img" onerror="this.src='https://placekitten.com/401/301'">
             <h1>Yeeay! I Love You! 💖</h1>
             <div id="typing-text" style="font-size: 1rem; line-height: 1.5; min-height: 80px;"></div>
             <div style="font-size: 30px; margin-top: 10px;">🌸🌼🌻</div>
@@ -102,24 +51,20 @@
     <script>
         let yesScale = 1;
         const messages = [
-            "Hello Lifta sayang... 🥰",
+            "Halo Lifta sayang... ",
             "HAPPY VALENTINE DAY💌!",
             "i just want you to know how much you truly mean to me, you're not just someone i care about, you're someone i carry with me in every thought, every quiet moment, every hope for the future. your presence in my life brings warmth, comfort and a sense of calm that's hard to put into words. even on your toughest day, please remember that you're never alone. i see your heart, i believe in your strength, and i'll always be here, cheering for you, supporting you, and loving you in every way i can . you matter more than you know. 🌸🌼🌻",
             "I love you so much! ✨"
         ];
 
-        // Pakai onpointerdown agar lebih sensitif di HP
         function moveNo() {
             const btnNo = document.getElementById('noBtn');
             const btnYes = document.getElementById('yesBtn');
-            
             const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 50);
-            
             btnNo.style.position = 'fixed';
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
-
             yesScale += 0.15;
             btnYes.style.transform = `scale(${yesScale})`;
         }
@@ -127,11 +72,8 @@
         function accepted() {
             document.getElementById('ask-content').style.display = 'none';
             document.getElementById('success-content').style.display = 'block';
-            
-            let i = 0;
-            let msgIndex = 0;
+            let i = 0; let msgIndex = 0;
             const target = document.getElementById('typing-text');
-            
             function type() {
                 if (msgIndex < messages.length) {
                     if (i < messages[msgIndex].length) {
@@ -140,8 +82,7 @@
                         setTimeout(type, 50);
                     } else {
                         target.innerHTML += "<br>";
-                        i = 0;
-                        msgIndex++;
+                        i = 0; msgIndex++;
                         setTimeout(type, 800);
                     }
                 }
