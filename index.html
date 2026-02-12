@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Special for Lifta 💖</title>
+    <title>For Lifta 💖</title>
     <style>
         :root { --pink: #fbc2eb; --dark-pink: #d88190; --krem: #fff5e1; }
         body { background: var(--krem); color: var(--dark-pink); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: manipulation; }
@@ -11,13 +11,12 @@
         .floating { position: fixed; z-index: 1; pointer-events: none; animation: float 6s ease-in-out infinite; opacity: 0.6; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(216, 129, 144, 0.2); width: 85%; max-width: 350px; z-index: 10; text-align: center; border: 2px solid var(--pink); position: relative; }
+        .card { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(216, 129, 144, 0.2); width: 85%; max-width: 320px; z-index: 10; text-align: center; border: 2px solid var(--pink); position: relative; }
         
-        /* Gambar Kucing Stabil (Bukan Giphy) */
-        .main-img { width: 100%; border-radius: 20px; margin-bottom: 15px; display: block; height: 200px; object-fit: cover; }
+        .emoji-display { font-size: 80px; margin-bottom: 20px; display: block; }
         
-        .btn-wrapper { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .btn { border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; width: 100%; z-index: 100; position: relative; -webkit-tap-highlight-color: transparent; outline: none; }
+        .btn-wrapper { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; align-items: center; width: 100%; position: relative; min-height: 120px; }
+        .btn { border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2rem; width: 100%; z-index: 100; position: relative; -webkit-tap-highlight-color: transparent; }
         .btn-yes { background: var(--pink); color: white; box-shadow: 0 5px 15px var(--pink); }
         .btn-no { background: #eee; color: #888; }
 
@@ -32,7 +31,7 @@
 
     <div class="card">
         <div id="ask-content">
-            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500" class="main-img">
+            <div class="emoji-display">🐈</div>
             <h1>Will you be my Valentine, Lifta? 🎀</h1>
             <div class="btn-wrapper">
                 <button class="btn btn-yes" id="yesBtn" onclick="accepted()">Yes!</button>
@@ -41,10 +40,10 @@
         </div>
 
         <div id="success-content">
-            <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=500" class="main-img">
+            <div class="emoji-display">👸🏻</div>
             <h1>Yeeay! I Love You! 💖</h1>
-            <div id="typing-text" style="font-size: 1rem; line-height: 1.5; min-height: 80px;"></div>
-            <div style="font-size: 30px; margin-top: 10px;">🌸🌼🌻</div>
+            <div id="typing-text" style="font-size: 1.1rem; line-height: 1.5;"></div>
+            <div style="font-size: 40px; margin-top: 20px;">🌸🌼🌻</div>
         </div>
     </div>
 
@@ -52,8 +51,8 @@
         let yesScale = 1;
         const messages = [
             "Hello Lifta sayang... ",
-            "HAPPY VALENTINES DAY💌!",
-            “i just want you to know how much you truly mean to me, you're not just someone i care about, you're someone i carry with me in every thought, every quiet moment, every hope for the future. your presence in my life brings warmth, comfort and a sense of calm that's hard to put into words. even on your toughest day, please remember that you're never alone. i see your heart, i believe in your strength, and i'll always be here, cheering for you, supporting you, and loving you in every way i can . you matter more than you know. 🌸🌼🌻",
+            "HAPPY VALENTINE DAY💌
+just want you to know how much you truly mean to me, you're not just someone i care about, you're someone i carry with me in every thought, every quiet moment, every hope for the future. your presence in my life brings warmth, comfort and a sense of calm that's hard to put into words. even on your toughest day, please remember that you're never alone. i see your heart, i believe in your strength, and i'll always be here, cheering for you, supporting you, and loving you in every way i can . you matter more than you know.",
             "I love you so much! ✨"
         ];
 
