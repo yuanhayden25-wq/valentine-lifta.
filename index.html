@@ -2,212 +2,194 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special for Lifta 💖</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Special for Lifta 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff758c;
             --secondary: #ff7eb3;
-            --soft-pink: #ffeef2;
-            --gold: #ffd700;
+            --accent: #ffafbd;
+            --white: rgba(255, 255, 255, 0.9);
         }
 
-        body {
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            touch-action: manipulation;
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; font-family: 'Quicksand', sans-serif;
+            background: #ffdee9;
+            background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
         }
 
-        /* Latar Belakang Hati Berjatuhan */
-        #heart-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
+        #canvas {
+            position: absolute; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
         }
 
-        /* Container Utama */
-        .container {
+        .main-wrapper {
             position: relative; z-index: 10;
-            background: rgba(255, 255, 255, 0.85);
+            display: flex; justify-content: center; align-items: center;
+            width: 100%; height: 100%;
+        }
+
+        .glass-card {
+            background: var(--white);
             backdrop-filter: blur(15px);
+            border-radius: 35px;
             padding: 40px 25px;
-            border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            width: 85%; max-width: 380px;
             text-align: center;
-            width: 85%; max-width: 400px;
-            transition: all 0.5s ease-in-out;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            transition: all 0.6s ease;
         }
 
-        .main-emoji {
-            font-size: 85px; margin-bottom: 15px;
-            display: inline-block; animation: pulse 2s infinite;
+        .emoji-box {
+            font-size: 80px; margin-bottom: 20px;
+            animation: floating 3s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         h1 {
-            color: #d63384; font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem; margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            color: #d63384; font-size: 2.3rem; margin: 0 0 20px 0;
         }
 
-        .btn-group {
+        .btn-container {
             display: flex; flex-direction: column; gap: 15px;
-            margin-top: 20px; min-height: 160px; position: relative;
+            margin-top: 20px; min-height: 180px; position: relative;
         }
 
         .btn {
             padding: 16px; border: none; border-radius: 50px;
-            font-weight: 600; font-size: 1.1rem; cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-yes {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.3);
+            color: white; box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
             z-index: 100;
         }
 
         .btn-no {
-            background: #ffffff; color: #999; border: 1px solid #ddd;
+            background: white; color: #888; border: 1px solid #eee;
         }
 
-        /* Tampilan Sukses */
-        #success-screen { display: none; opacity: 0; }
-        
+        #success-content { display: none; }
+
         #typing-text {
-            font-size: 0.95rem; line-height: 1.6; color: #444;
-            text-align: justify; margin-top: 15px;
-            max-height: 300px; overflow-y: auto; padding-right: 5px;
+            font-size: 0.95rem; line-height: 1.7; color: #444;
+            text-align: justify; max-height: 250px; overflow-y: auto;
+            padding: 10px; border-top: 1px solid #ffeef2;
         }
-
-        /* Dekorasi tambahan */
-        .decor { position: absolute; opacity: 0.5; z-index: -1; }
     </style>
 </head>
 <body>
 
-    <canvas id="heart-canvas"></canvas>
+    <canvas id="canvas"></canvas>
+    
+    <audio id="myAudio" loop>
+        <source src=" 
 
-    <div class="container" id="mainContainer">
-        <div id="ask-screen">
-            <div class="main-emoji" id="catEmoji">🐈</div>
-            <h1>Will you be my Valentine, <span style="color: var(--primary);">Lifta?</span></h1>
-            <div class="btn-group">
-                <button class="btn btn-yes" id="yesBtn" onclick="onAccepted()">Yes, I will! 💖</button>
-                <button class="btn btn-no" id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+" type="audio/mpeg">
+    </audio>
+
+    <div class="main-wrapper">
+        <div class="glass-card" id="card">
+            <div id="ask-content">
+                <div class="emoji-box" id="mainEmoji">🐈</div>
+                <h1>Will you be my Valentine, Lifta?</h1>
+                <div class="btn-container">
+                    <button class="btn btn-yes" id="yesBtn" onclick="accepted()">Yes, I will! 💖</button>
+                    <button class="btn btn-no" id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+                </div>
             </div>
-        </div>
 
-        <div id="success-screen">
-            <div class="main-emoji">👸🏻</div>
-            <h1 style="font-size: 1.8rem;">You've made me the luckiest!</h1>
-            <div id="typing-text"></div>
-            <div style="margin-top: 20px; font-size: 20px;">✨🎀✨</div>
+            <div id="success-content">
+                <div class="emoji-box">👸🏻</div>
+                <h1 style="font-size: 1.8rem;">You're My Favorite Person!</h1>
+                <div id="typing-text"></div>
+                <div style="margin-top: 15px; font-size: 24px;">🎵✨🌹</div>
+            </div>
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('heart-canvas');
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        let hearts = [];
+        let particles = [];
 
-        function resize() {
+        function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
 
-        class Heart {
+        class Particle {
             constructor() {
-                this.reset();
-            }
-            reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 20;
-                this.size = Math.random() * 15 + 10;
-                this.speed = Math.random() * 2 + 1;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speed = Math.random() * 1 + 0.5;
+                this.opacity = Math.random() * 0.5;
             }
             update() {
-                this.y -= this.speed;
-                if (this.y < -20) this.reset();
+                this.y += this.speed;
+                if (this.y > canvas.height) this.y = -10;
             }
             draw() {
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = '#ff758c';
-                ctx.font = `${this.size}px serif`;
-                ctx.fillText('❤', this.x, this.y);
+                ctx.fillStyle = `rgba(255, 117, 140, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
             }
         }
 
-        for(let i=0; i<30; i++) hearts.push(new Heart());
+        for(let i=0; i<50; i++) particles.push(new Particle());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            hearts.forEach(h => { h.update(); h.draw(); });
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
         animate();
 
-        let scale = 1;
+        let yesScale = 1;
         function moveNo() {
             const btnNo = document.getElementById('noBtn');
             const btnYes = document.getElementById('yesBtn');
-            const emoji = document.getElementById('catEmoji');
-            
-            const x = Math.random() * (window.innerWidth - 120);
-            const y = Math.random() * (window.innerHeight - 80);
-            
             btnNo.style.position = 'fixed';
-            btnNo.style.left = x + 'px';
-            btnNo.style.top = y + 'px';
-
-            scale += 0.2;
-            btnYes.style.transform = `scale(${scale})`;
-            emoji.innerText = '😿';
-            setTimeout(() => { if(document.getElementById('ask-screen').style.display !== 'none') emoji.innerText = '🐈'; }, 500);
+            btnNo.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btnNo.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            yesScale += 0.2;
+            btnYes.style.transform = `scale(${yesScale})`;
+            document.getElementById('mainEmoji').innerText = '😿';
         }
 
-        const message = "Hello Lifta sayang... \n\nHAPPY VALENTINE'S DAY 💌\n\nI just want you to know how much you truly mean to me. You're the warmth in my quietest moments and the best part of my every day. \n\nPlease remember that you never have to walk alone—I'll always be right here, cheering for you and loving you in every way I can. You matter more than words can say.\n\nThank you for coming into my life, thank you for making me smile and laugh. Thank you for being so understanding and for being my biggest supporter. I really appreciate you so much.\n\nI hope my prayers can hug you when my arms can't. \n\nI love you, Lifta! 💕";
+        const msg = "Hello Lifta sayang... \n\nHAPPY VALENTINE'S DAY 💌\n\nI just want you to know how much you truly mean to me. You're the warmth in my quietest moments and the best part of my every day. \n\nThank you for coming into my life, for making me smile, and for being my biggest supporter. I really appreciate you so much. I hope my prayers can hug you when my arms can't.\n\nI love you so much! 💕";
 
-        function onAccepted() {
-            const askScreen = document.getElementById('ask-screen');
-            const successScreen = document.getElementById('success-screen');
+        function accepted() {
+            const audio = document.getElementById('myAudio');
+            audio.play().catch(e => console.log("Audio play failed: ", e));
             
-            askScreen.style.opacity = '0';
-            setTimeout(() => {
-                askScreen.style.display = 'none';
-                successScreen.style.display = 'block';
-                successScreen.style.opacity = '1';
-                typeWriter();
-                // Tambah efek ledakan hati
-                for(let i=0; i<50; i++) {
-                    setTimeout(() => {
-                        hearts.push(new Heart());
-                    }, i * 100);
-                }
-            }, 500);
-
+            document.getElementById('ask-content').style.display = 'none';
+            document.getElementById('success-content').style.display = 'block';
+            
             let i = 0;
             const target = document.getElementById('typing-text');
-            function typeWriter() {
-                if (i < message.length) {
-                    target.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
+            function type() {
+                if (i < msg.length) {
+                    target.innerHTML += msg.charAt(i) === '\n' ? '<br>' : msg.charAt(i);
                     i++;
                     target.scrollTop = target.scrollHeight;
-                    setTimeout(typeWriter, 35);
+                    setTimeout(type, 40);
                 }
             }
+            type();
         }
     </script>
 </body>
