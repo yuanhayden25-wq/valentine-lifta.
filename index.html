@@ -3,142 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Lifta 💖</title>
+    <title>Special for Lifta 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --pink-bg: #ffeef2;
-            --pink-main: #ff758c;
-            --pink-dark: #d63384;
-            --glass: rgba(255, 255, 255, 0.85);
+            --primary: #ff758c;
+            --secondary: #ff7eb3;
+            --white: rgba(255, 255, 255, 0.85);
         }
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             overflow: hidden; font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(180deg, #b5fffc 0%, #ffdee9 100%);
+            background: #ffdee9;
+            background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
         }
 
         #bg-canvas {
             position: absolute; width: 100%; height: 100%;
-            z-index: 1;
+            z-index: 1; pointer-events: none;
         }
 
-        .wrapper {
+        .main-wrapper {
             position: relative; z-index: 10;
             display: flex; justify-content: center; align-items: center;
             width: 100%; height: 100%;
+            perspective: 1000px;
         }
 
-        .card {
-            background: var(--glass);
+        .glass-card {
+            background: var(--white);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 40px;
-            padding: 45px 30px;
-            width: 85%; max-width: 380px;
+            padding: 40px 25px;
+            width: 88%; max-width: 380px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 30px 60px rgba(255, 117, 140, 0.2);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(255, 117, 140, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
         }
 
-        .emoji-header {
-            font-size: 90px;
-            margin-bottom: 25px;
+        .emoji-box {
+            font-size: 85px; margin-bottom: 20px;
             display: inline-block;
-            animation: heartBeat 1.5s infinite;
+            animation: floating 3s ease-in-out infinite;
         }
 
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.1); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.1); }
-            70% { transform: scale(1); }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            color: var(--pink-dark);
-            font-size: 2.6rem;
-            margin: 0 0 25px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            color: #d63384; font-size: 2.5rem; margin: 0 0 15px 0;
         }
 
-        .btn-box {
+        .btn-container {
             display: flex; flex-direction: column; gap: 15px;
-            margin-top: 20px; min-height: 180px;
+            margin-top: 25px; min-height: 180px;
         }
 
         .btn {
             padding: 18px; border: none; border-radius: 50px;
-            font-size: 1.2rem; font-weight: 600; cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            font-size: 1.15rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-yes {
-            background: linear-gradient(45deg, var(--pink-main), #ff7eb3);
-            color: white;
-            box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.3);
         }
 
         .btn-no {
-            background: white; color: #999;
-            border: 1px solid #f0f0f0;
+            background: white; color: #aaa; border: 1px solid #eee;
         }
 
-        #success-view { display: none; opacity: 0; }
+        #success-content { display: none; opacity: 0; }
 
-        .message-box {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #444;
-            text-align: left;
-            max-height: 280px;
-            overflow-y: auto;
-            padding: 15px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.5);
+        #typing-text {
+            font-size: 1rem; line-height: 1.7; color: #444;
+            text-align: justify; max-height: 280px; overflow-y: auto;
+            padding: 15px; background: rgba(255, 255, 255, 0.4);
+            border-radius: 20px; margin-top: 10px;
         }
 
-        /* Scrollbar styling */
-        .message-box::-webkit-scrollbar { width: 4px; }
-        .message-box::-webkit-scrollbar-thumb { background: var(--pink-main); border-radius: 10px; }
+        #typing-text::-webkit-scrollbar { width: 4px; }
+        #typing-text::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
     
-    <audio id="monologAudio" loop>
+    <audio id="monologSong" loop>
         <source src="LINK_LAGU_MONOLOG_DISINI.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="wrapper">
-        <div class="card" id="mainCard">
-            <div id="ask-view">
-                <div class="emoji-header" id="mainEmoji">🐈</div>
-                <h1>Will you be my Valentine, <span style="color: var(--pink-main)">Lifta?</span></h1>
-                <div class="btn-box">
-                    <button class="btn btn-yes" id="yesBtn" onclick="onYes()">Yes, Absolutely! 💖</button>
-                    <button class="btn btn-no" id="noBtn" onmouseover="onNoHover()" onclick="onNoHover()">No</button>
+    <div class="main-wrapper">
+        <div class="glass-card" id="card">
+            <div id="ask-content">
+                <div class="emoji-box" id="mainEmoji">🐈</div>
+                <h1>Dear Lifta...</h1>
+                <p style="color: #888; letter-spacing: 1px;">WILL YOU BE MY VALENTINE?</p>
+                <div class="btn-container">
+                    <button class="btn btn-yes" id="yesBtn" onclick="accepted()">YES, I WILL! 💖</button>
+                    <button class="btn btn-no" id="noBtn" onmouseover="moveNo()" onpointerdown="moveNo()">No</button>
                 </div>
             </div>
 
-            <div id="success-view">
-                <div class="emoji-header">👸🏻</div>
-                <h1 style="font-size: 2rem;">You're My Favorite!</h1>
-                <div id="typewriter" class="message-box"></div>
-                <div style="margin-top: 20px; font-size: 28px;">🧸✨🌷</div>
+            <div id="success-content">
+                <div class="emoji-box">👸🏻</div>
+                <h1 style="font-size: 2rem;">Yeay! Thank You!</h1>
+                <div id="typing-text"></div>
+                <div style="margin-top: 20px; font-size: 24px;">🍓✨🧸</div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- ANIMASI BACKGROUND ---
+        // 1. Particle Background
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let hearts = [];
@@ -150,63 +137,64 @@
         window.addEventListener('resize', init);
         init();
 
-        class BackgroundHeart {
+        class Heart {
             constructor() {
+                this.reset();
+            }
+            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 10 + 5;
-                this.velX = Math.random() * 1 - 0.5;
-                this.velY = Math.random() * 1 - 0.5;
+                this.size = Math.random() * 8 + 4;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
                 this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
             }
             draw() {
                 ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = '#ff758c';
+                ctx.fillStyle = "#ff758c";
                 ctx.font = `${this.size}px serif`;
                 ctx.fillText('❤', this.x, this.y);
             }
-            update() {
-                this.x += this.velX;
-                this.y += this.velY;
-                if (this.x < 0 || this.x > canvas.width) this.velX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.velY *= -1;
-            }
         }
 
-        for(let i=0; i<40; i++) hearts.push(new BackgroundHeart());
+        for(let i=0; i<40; i++) hearts.push(new Heart());
 
-        function loop() {
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             hearts.forEach(h => { h.update(); h.draw(); });
-            requestAnimationFrame(loop);
+            requestAnimationFrame(animate);
         }
-        loop();
+        animate();
 
-        // --- LOGIKA TOMBOL & PESAN ---
+        // 2. Logic Buttons
         let scale = 1;
-        function onNoHover() {
+        function moveNo() {
             const btnNo = document.getElementById('noBtn');
             const btnYes = document.getElementById('yesBtn');
             const emoji = document.getElementById('mainEmoji');
             
             btnNo.style.position = 'fixed';
             btnNo.style.left = Math.random() * (window.innerWidth - 100) + 'px';
-            btnNo.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            btnNo.style.top = Math.random() * (window.innerHeight - 80) + 'px';
             
             scale += 0.3;
             btnYes.style.transform = `scale(${scale})`;
             emoji.innerText = '😿';
-            setTimeout(() => { if(scale < 5) emoji.innerText = '🐈'; }, 600);
+            setTimeout(() => { if(scale < 5) emoji.innerText = '🐈'; }, 500);
         }
 
-        const message = "Hello Lifta sayang... \n\nHAPPY VALENTINE'S DAY 💌\n\nI just want you to know how much you truly mean to me. You're the warmth in my quietest moments and the best part of my every day. \n\nThank you for coming into my life, for making me smile, and for being my biggest supporter. I really appreciate you so much. I hope my prayers can hug you when my arms can't.\n\nI love you so much! 💕\n\n- (Namamu)";
+        const msg = "Hello Lifta sayang... \n\nHAPPY VALENTINE'S DAY 💌\n\nI just want you to know how much you truly mean to me. You're the warmth in my quietest moments and the best part of my every day. \n\nThank you for coming into my life, for making me smile and laugh, and for being so understanding. Thank you for being my biggest supporter. I really appreciate you so much.\n\nI hope my prayers can hug you when my arms can't. Thank you for everything.\n\nI love you so much! 💕\n\n- Hiden Gemblunk";
 
-        function onYes() {
-            // Putar Musik
-            const audio = document.getElementById('monologAudio');
-            audio.play().catch(() => console.log("Perlu interaksi user untuk musik"));
+        function accepted() {
+            // Play Monolog
+            document.getElementById('monologSong').play();
 
-            // Ledakan Confetti
+            // Celebration Confetti
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -214,18 +202,16 @@
                 colors: ['#ff758c', '#ff7eb3', '#ffafbd']
             });
 
-            // Ganti Tampilan
-            document.getElementById('ask-view').style.display = 'none';
-            const successView = document.getElementById('success-view');
-            successView.style.display = 'block';
-            setTimeout(() => successView.style.opacity = 1, 100);
+            document.getElementById('ask-content').style.display = 'none';
+            const success = document.getElementById('success-content');
+            success.style.display = 'block';
+            setTimeout(() => success.style.opacity = 1, 100);
 
-            // Efek Ketik
             let i = 0;
-            const target = document.getElementById('typewriter');
+            const target = document.getElementById('typing-text');
             function type() {
-                if (i < message.length) {
-                    target.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
+                if (i < msg.length) {
+                    target.innerHTML += msg.charAt(i) === '\n' ? '<br>' : msg.charAt(i);
                     i++;
                     target.scrollTop = target.scrollHeight;
                     setTimeout(type, 35);
@@ -233,6 +219,14 @@
             }
             type();
         }
+
+        // 3. 3D Card Effect
+        const card = document.getElementById('card');
+        document.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 20;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 20;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
     </script>
 </body>
 </html>
