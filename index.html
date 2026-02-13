@@ -2,91 +2,207 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Lifta 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Lifta Tersayang</title>
     <style>
-        :root { --pink: #fbc2eb; --dark-pink: #d88190; --krem: #fff5e1; }
-        body { background: var(--krem); color: var(--dark-pink); font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; touch-action: manipulation; }
-        
-        .floating { position: fixed; z-index: 1; pointer-events: none; animation: float 6s ease-in-out infinite; opacity: 0.6; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        :root {
+            --primary: #ff758c;
+            --secondary: #ff7eb3;
+            --bg: #ffeef2;
+        }
 
-        .card { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(216, 129, 144, 0.2); width: 85%; max-width: 320px; z-index: 10; text-align: center; border: 2px solid var(--pink); position: relative; }
-        
-        .emoji-display { font-size: 80px; margin-bottom: 20px; display: block; }
-        
-        .btn-wrapper { margin-top: 25px; display: flex; flex-direction: column; gap: 15px; align-items: center; width: 100%; position: relative; min-height: 120px; }
-        .btn { border: none; padding: 15px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2rem; width: 100%; z-index: 100; position: relative; -webkit-tap-highlight-color: transparent; }
-        .btn-yes { background: var(--pink); color: white; box-shadow: 0 5px 15px var(--pink); }
-        .btn-no { background: #eee; color: #888; }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fbefef 0%, #ffeef2 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
 
-        #success-content { display: none; }
+        /* Latar Belakang Animasi Hati */
+        .heart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.3;
+            animation: move linear infinite;
+        }
+
+        @keyframes move {
+            from { transform: translateY(100vh) rotate(0deg); }
+            to { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* Desain Kartu Glassmorphism */
+        .container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(255, 117, 140, 0.2);
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+        }
+
+        .main-emoji {
+            font-size: 80px;
+            margin-bottom: 10px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            min-height: 150px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4);
+        }
+
+        .btn-no {
+            background: #fff;
+            color: #999;
+            border: 1px solid #eee;
+        }
+
+        #success-screen {
+            display: none;
+        }
+
+        #typing-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .heart-icon {
+            color: #ff4d4d;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="floating" style="top: 10%; left: 10%; font-size: 40px;">🌸</div>
-    <div class="floating" style="top: 20%; right: 10%; font-size: 35px; animation-delay: 1s;">🐈</div>
-    <div class="floating" style="bottom: 15%; left: 10%; font-size: 30px; animation-delay: 2s;">🌻</div>
+    <div class="heart-bg" id="heartBg"></div>
 
-    <div class="card">
-        <div id="ask-content">
-            <div class="emoji-display">🐈</div>
-            <h1>Will you be my Valentine, Lifta? 🎀</h1>
-            <div class="btn-wrapper">
-                <button class="btn btn-yes" id="yesBtn" onclick="accepted()">Yes!</button>
-                <button class="btn btn-no" id="noBtn" onpointerdown="moveNo()" onclick="moveNo()">No</button>
+    <div class="container" id="mainContainer">
+        <div id="ask-screen">
+            <div class="main-emoji" id="catEmoji">🐈</div>
+            <h1>Will you be my Valentine, <span style="color: var(--primary);">Lifta?</span> 🎀</h1>
+            <div class="btn-group">
+                <button class="btn btn-yes" id="yesBtn" onclick="onAccepted()">Yes, I will! ✨</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
             </div>
         </div>
 
-        <div id="success-content">
-            <div class="emoji-display">👸🏻</div>
-            <h1>Yeeay! I Love You! 💖</h1>
-            <div id="typing-text" style="font-size: 1.1rem; line-height: 1.5;"></div>
-            <div style="font-size: 40px; margin-top: 20px;">🌸🌼🌻</div>
+        <div id="success-screen">
+            <div class="main-emoji">👸🏻</div>
+            <h1 style="margin-bottom: 5px;">You made my day! 💖</h1>
+            <div id="typing-text"></div>
         </div>
     </div>
 
     <script>
-        let yesScale = 1;
-        const messages = [
-            "Hello Lifta sayang... ",
-            "HAPPY VALENTINE DAY💌
-just want you to know how much you truly mean to me, you're not just someone i care about, you're someone i carry with me in every thought, every quiet moment, every hope for the future. your presence in my life brings warmth, comfort and a sense of calm that's hard to put into words. even on your toughest day, please remember that you're never alone. i see your heart, i believe in your strength, and i'll always be here, cheering for you, supporting you, and loving you in every way i can . you matter more than you know.",
-            "I love you so much! ✨"
-        ];
+        // Membuat animasi hati melayang di background
+        function createHearts() {
+            const bg = document.getElementById('heartBg');
+            for(let i=0; i<20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                bg.appendChild(heart);
+            }
+        }
+        createHearts();
 
+        let scale = 1;
         function moveNo() {
             const btnNo = document.getElementById('noBtn');
             const btnYes = document.getElementById('yesBtn');
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 50);
+            const emoji = document.getElementById('catEmoji');
+            
+            // Gerakan tombol No secara acak
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            
             btnNo.style.position = 'fixed';
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
-            yesScale += 0.2;
-            btnYes.style.transform = `scale(${yesScale})`;
+
+            // Tombol Yes semakin besar
+            scale += 0.25;
+            btnYes.style.transform = `scale(${scale})`;
+            
+            // Ganti emoji saat menolak
+            emoji.innerText = '😿';
+            setTimeout(() => { emoji.innerText = '🐈'; }, 500);
         }
 
-        function accepted() {
-            document.getElementById('ask-content').style.display = 'none';
-            document.getElementById('success-content').style.display = 'block';
-            let i = 0; let msgIndex = 0;
+        const message = "Hello Lifta sayang... \n\nHAPPY VALENTINE'S DAY 💌\n\nI just want you to know how much you truly mean to me. You're the warmth in my quietest moments and the best part of my every day. Please remember that you never have to walk alone—I'll always be right here, cheering for you and loving you in every way I can. You matter more than words can say.";
+
+        function onAccepted() {
+            document.getElementById('ask-screen').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+            
+            let i = 0;
             const target = document.getElementById('typing-text');
-            function type() {
-                if (msgIndex < messages.length) {
-                    if (i < messages[msgIndex].length) {
-                        target.innerHTML += messages[msgIndex].charAt(i);
-                        i++;
-                        setTimeout(type, 50);
+            
+            function typeWriter() {
+                if (i < message.length) {
+                    if (message.charAt(i) === '\n') {
+                        target.innerHTML += '<br>';
                     } else {
-                        target.innerHTML += "<br>";
-                        i = 0; msgIndex++;
-                        setTimeout(type, 800);
+                        target.innerHTML += message.charAt(i);
                     }
+                    i++;
+                    setTimeout(typeWriter, 40);
                 }
             }
-            type();
+            typeWriter();
         }
     </script>
 </body>
